@@ -1,17 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"golang-oop/accounts"
+)
 
-type CurrentAccount struct {
-	holder        string
-	agencyNumber  int
-	accountNumber int
-	balance       float64
+type AccountVerify interface {
+	Withdraw(valor float64) string
 }
 
 func main() {
-	brunoCurrentAccount := CurrentAccount{"Bruno Colpani", 589, 123456, 259.82}
-	gabrielCurrentAccount := CurrentAccount{"Gabriel Colpani", 589, 123789, 3578.82}
+	brunoAccount := accounts.CurrentAccount{}
+	brunoAccount.Deposit(100)
+	payBill(&brunoAccount, 60)
 
-	fmt.Println(brunoCurrentAccount, gabrielCurrentAccount)
+	fmt.Println(brunoAccount.GetBalance())
+}
+
+func payBill(account AccountVerify, boletoValor float64) {
+	account.Withdraw(boletoValor)
 }
